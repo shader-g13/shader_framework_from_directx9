@@ -3,8 +3,8 @@
 /// @date 2015/09/03
 /// @author syuki nishida
 
-#include <DirectX9Framework/src/Transform.hlsli>
-#include <DirectX9Framework/src/Material.hlsli>
+#include <Transform.hlsli>
+#include <Material.hlsli>
 
 struct VertexIn {
   float3 pos : POSITION0;

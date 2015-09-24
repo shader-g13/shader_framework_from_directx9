@@ -38,4 +38,6 @@ private:
 
   Plane* plane_;
   XModel* model_;
+  LPDIRECT3DTEXTURE9 texBase_;
+  LPDIRECT3DTEXTURE9 texBmp_;
 };

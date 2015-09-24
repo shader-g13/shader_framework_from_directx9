@@ -89,5 +89,11 @@
     <FxCompile Include="src\hlsl\test_vs.hlsl">
       <Filter>src\hlsl</Filter>
     </FxCompile>
+    <FxCompile Include="src\hlsl\bump_ps.hlsl">
+      <Filter>src\hlsl</Filter>
+    </FxCompile>
+    <FxCompile Include="src\hlsl\specular_vs.hlsl">
+      <Filter>src\hlsl</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
