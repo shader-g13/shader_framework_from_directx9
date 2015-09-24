@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClCompile Include="src\application.cpp" />
     <ClCompile Include="src\input.cpp" />
+    <ClCompile Include="src\LightManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\plane.cpp" />
     <ClCompile Include="src\renderer.cpp" />
@@ -102,6 +103,8 @@
   <ItemGroup>
     <ClInclude Include="src\application.h" />
     <ClInclude Include="src\input.h" />
+    <ClInclude Include="src\LightManager.h" />
+    <ClInclude Include="src\LightShaderInterface.h" />
     <ClInclude Include="src\perth_matrix.h" />
     <ClInclude Include="src\pixel_shader.h" />
     <ClInclude Include="src\plane.h" />

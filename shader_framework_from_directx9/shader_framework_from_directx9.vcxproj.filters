@@ -8,6 +8,12 @@
     <Filter Include="src\hlsl">
       <UniqueIdentifier>{734f59b5-3c22-4642-91e2-6446a31869b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Model">
+      <UniqueIdentifier>{e5b92357-a9eb-49b7-b89e-61a2fee99674}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Light">
+      <UniqueIdentifier>{b59c1b81-5c69-4274-991d-a838b3d7ce69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\application.cpp">
@@ -25,8 +31,11 @@
     <ClCompile Include="src\renderer.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\LightManager.cpp">
+      <Filter>src\Light</Filter>
+    </ClCompile>
     <ClCompile Include="src\xmodel.cpp">
-      <Filter>src</Filter>
+      <Filter>src\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,14 +60,20 @@
     <ClInclude Include="src\vertex_shader.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\xmodel.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\perth_matrix.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\view_matrix.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightShaderInterface.h">
+      <Filter>src\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightManager.h">
+      <Filter>src\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="src\xmodel.h">
+      <Filter>src\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
