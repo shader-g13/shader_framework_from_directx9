@@ -36,9 +36,6 @@
     <ClInclude Include="src\input.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\perth.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\pixel_shader.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -54,10 +51,13 @@
     <ClInclude Include="src\vertex_shader.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\view.h">
+    <ClInclude Include="src\xmodel.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\xmodel.h">
+    <ClInclude Include="src\perth_matrix.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view_matrix.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

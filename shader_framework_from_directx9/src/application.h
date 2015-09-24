@@ -2,8 +2,8 @@
 
 #include <Windows.h>
 #include "renderer.h"
-#include "perth.h"
-#include "view.h"
+#include "perth_matrix.h"
+#include "view_matrix.h"
 #include "vertex_shader.h"
 #include "pixel_shader.h"
 #include "plane.h"
@@ -39,8 +39,8 @@ private:
 	VertexShader* vs_;
 	PixelShader* ps_;
 
-	Perth perth_;
-	View view_;
+	PerthMatrix perth_;
+	ViewMatrix view_;
 
 	Plane* plane_;
 	XModel* model_;
