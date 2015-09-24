@@ -2,17 +2,17 @@
 
 #include <d3dx9.h>
 
-class View {
+class ViewMatrix {
 public:
 	/// @brief コンストラクタ
-	View() :
+  ViewMatrix() :
 		eye_(0, 100, -100),
 		at_(0, 0, 0),
 		up_(0, 1, 0) {
 	}
 
 	/// @brief デストラクタ
-	virtual ~View() {}
+  virtual ~ViewMatrix() {}
 
 	/// @brief セッター
 	void SetEye(D3DXVECTOR3 eye) { eye_ = eye; }

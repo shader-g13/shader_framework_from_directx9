@@ -2,10 +2,10 @@
 
 #include <d3dx9.h>
 
-class Perth {
+class PerthMatrix {
 public:
 	/// @brief コンストラクタ
-	Perth():
+  PerthMatrix() :
 		fov_(D3DXToRadian(45.f)),
 		aspect_(4.f / 3.f),
 		znear_(0.1f),
@@ -13,7 +13,7 @@ public:
 	}
 
 	/// @brief デストラクタ
-	virtual ~Perth() {}
+  virtual ~PerthMatrix() {}
 
 	/// @brief セッター
 	void SetFov(float fov) { fov_ = fov; }
