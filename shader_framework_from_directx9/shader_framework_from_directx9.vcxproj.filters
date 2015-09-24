@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\hlsl">
+      <UniqueIdentifier>{734f59b5-3c22-4642-91e2-6446a31869b5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\application.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\plane.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\renderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xmodel.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\application.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\input.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\perth.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pixel_shader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\plane.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shader_base.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vertex_shader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\xmodel.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="src\hlsl\test_ps.hlsl">
+      <Filter>src\hlsl</Filter>
+    </FxCompile>
+    <FxCompile Include="src\hlsl\test_vs.hlsl">
+      <Filter>src\hlsl</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
