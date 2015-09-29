@@ -3,7 +3,7 @@
 /// @date 2015/04/17
 /// @author syuki nishida
 
-#include "DirectInput8Module.h"
+#include <DirectInput8/DirectInput8Module.h>
 #include <crtdbg.h>
 
 #pragma comment(lib, "dinput8.lib")

@@ -3,8 +3,8 @@
 /// @date 2015/05/07
 /// @author syuki nishida
 
-#include "SoloPlane.h"
-#include "SafeDelete.h"
+#include <DirectX9/Mesh/SoloPlane.h>
+#include <Util/SafeDelete.h>
 
 /// @namespace snlib
 namespace snlib {

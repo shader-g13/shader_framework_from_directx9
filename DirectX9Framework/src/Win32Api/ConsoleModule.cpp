@@ -3,7 +3,7 @@
 /// @date 2015/04/24
 /// @author syuki nishida
 
-#include "ConsoleModule.h"
+#include <Win32Api/ConsoleModule.h>
 #include <consoleapi.h>
 
 /// @namespace snlib

@@ -1,6 +1,7 @@
 
 #include "application.h"
-#include <SafeDelete.h>
+#include <Util/SafeDelete.h>
+#include <DirectX9/Mesh/SoloPlane.h>
 
 using namespace snlib;
 
@@ -29,10 +30,12 @@ test_scene_(nullptr) {
   frame_keeper_ = new snlib::FrameKeeper(60, update_func);
 
   // レンダラー初期化
-  renderer_ = new Renderer();
-  renderer_->Initialize(window_->GetWindowHandle(), 800, 600);
+  renderer_ = new DirectX9Module(window_->GetWindowHandle());
+  renderer_->Initialize();
 
   LPDIRECT3DDEVICE9 device = renderer_->GetDevice();
+
+  SoloPlane::Used(device);
 
   test_scene_ = new TestScene();
   test_scene_->Initialize(device);
@@ -43,6 +46,8 @@ Application::~Application() {
 
   test_scene_->Finalize();
   SafeDelete(test_scene_);
+
+  SoloPlane::Unused();
 
   // レンダラー終了
   renderer_->Finalize();
@@ -66,11 +71,11 @@ void Application::Update() {
 void Application::Draw() {
   LPDIRECT3DDEVICE9 device = renderer_->GetDevice();
 
-  renderer_->BegenDraw();
+  renderer_->BeginScene();
 
   test_scene_->Draw(device);
 
-	renderer_->EndDraw();
+	renderer_->EndScene();
 }
 
 

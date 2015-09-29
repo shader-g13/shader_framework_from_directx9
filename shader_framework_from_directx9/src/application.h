@@ -1,9 +1,9 @@
 #pragma once
 
 #include <Windows.h>
-#include <WindowModule.h>
-#include <FrameKeeper.h>
-#include "renderer.h"
+#include <Win32Api/WindowModule.h>
+#include <Util/FrameKeeper.h>
+#include <DirectX9/Rendering/DirectX9module.h>
 #include "test_scene.h"
 
 class Application {
@@ -31,7 +31,9 @@ private:
 
   snlib::FrameKeeper* frame_keeper_;
 
-	Renderer* renderer_;
+  snlib::DirectX9Module* renderer_;
+
+	//Renderer* renderer_;
 
   TestScene* test_scene_;
 };

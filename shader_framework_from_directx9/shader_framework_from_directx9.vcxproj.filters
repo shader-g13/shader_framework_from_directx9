@@ -19,16 +19,7 @@
     <ClCompile Include="src\application.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\input.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\plane.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\renderer.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\LightManager.cpp">
@@ -43,30 +34,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\application.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\input.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\pixel_shader.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\plane.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\renderer.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\shader_base.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vertex_shader.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\perth_matrix.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\view_matrix.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\test_scene.h">

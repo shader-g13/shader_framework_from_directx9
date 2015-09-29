@@ -3,8 +3,8 @@
 /// @date 2015/04/18
 /// @author syuki nishida
 
-#include "SceneSwitcherr.h"
-#include "SceneInterface.h"
+#include <Util/SceneSwitcherr.h>
+#include <Util/SceneInterface.h>
 
 /// @namespace snlib
 namespace snlib {

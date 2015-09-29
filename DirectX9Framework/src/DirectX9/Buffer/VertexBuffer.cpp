@@ -3,7 +3,7 @@
 /// @date 2015/04/21
 /// @author syuki nishida
 
-#include "VertexBuffer.h"
+#include <DirectX9/Buffer/VertexBuffer.h>
 #include <crtdbg.h>
 #include <stdio.h>
 

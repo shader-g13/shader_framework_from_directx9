@@ -3,7 +3,7 @@
 /// @data 2015/04/16
 /// @author syuki nishida
 
-#include "WindowModule.h"
+#include <Win32Api/WindowModule.h>
 #include <imm.h>
 #pragma comment(lib, "imm32.lib")
 

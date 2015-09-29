@@ -1,11 +1,10 @@
 #pragma once
 
 #include <d3d9.h>
-#include "perth_matrix.h"
-#include "view_matrix.h"
-#include "vertex_shader.h"
-#include "pixel_shader.h"
-#include "plane.h"
+#include <DirectX9/Matrix/PerthMatrixInterface.h>
+#include <DirectX9/Matrix/ViewMatrixInterface.h>
+#include <DirectX9/Shader/VertexShader.h>
+#include <DirectX9/Shader/PixelShader.h>
 #include "xmodel.h"
 
 class TestScene {
@@ -30,12 +29,11 @@ public:
 
 protected:
 private:
-  VertexShader* vs_;
-  PixelShader* ps_;
+  snlib::VertexShader* vs_;
+  snlib::PixelShader* ps_;
 
-  PerthMatrix perth_;
-  ViewMatrix view_;
+  snlib::PerthMatrixInterface perth_;
+  snlib::ViewMatrixInterface view_;
 
-  Plane* plane_;
   XModel* model_;
 };

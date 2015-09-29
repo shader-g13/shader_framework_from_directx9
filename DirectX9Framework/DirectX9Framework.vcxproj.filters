@@ -36,145 +36,145 @@
     <Filter Include="src\DirectX9\Matrix">
       <UniqueIdentifier>{5f9ee4ec-b744-4191-9c08-6b79ae82d7e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\DirectX9\Debug">
-      <UniqueIdentifier>{8704b6d5-22e8-40de-8fa9-10e0b4322b14}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\DirectX9\Mesh">
       <UniqueIdentifier>{1f3551e1-b115-4b7a-ba7d-9735cfbbed18}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\DirectX9\Rednering">
       <UniqueIdentifier>{76718bc6-3a22-4d17-a0f3-38179b939ffe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="開発中">
+      <UniqueIdentifier>{6e157a27-b4ab-4d10-9715-5bdf5a98932f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\DirectInput8Module.cpp">
+    <ClCompile Include="src\DirectInput8\DirectInput8Module.cpp">
       <Filter>src\DirectInput8</Filter>
     </ClCompile>
-    <ClCompile Include="src\WindowModule.cpp">
-      <Filter>src\Win32Api</Filter>
+    <ClCompile Include="src\DirectX9\Rendering\D3D9DeviceThread.cpp">
+      <Filter>src\DirectX9\Rednering</Filter>
     </ClCompile>
-    <ClCompile Include="src\ConsoleModule.cpp">
-      <Filter>src\Win32Api</Filter>
+    <ClCompile Include="src\DirectX9\Rendering\DirectX9Module.cpp">
+      <Filter>src\DirectX9\Rednering</Filter>
     </ClCompile>
-    <ClCompile Include="src\VertexBuffer.cpp">
+    <ClCompile Include="src\DirectX9\Rendering\RenderStateManager.cpp">
+      <Filter>src\DirectX9\Rednering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DirectX9\Buffer\Surface.cpp">
       <Filter>src\DirectX9\Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="src\SceneSwitcher.cpp">
-      <Filter>src\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Logger.cpp">
-      <Filter>src\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TextureBuffer.cpp">
+    <ClCompile Include="src\DirectX9\Buffer\TextureBuffer.cpp">
       <Filter>src\DirectX9\Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Surface.cpp">
+    <ClCompile Include="src\DirectX9\Buffer\VertexBuffer.cpp">
       <Filter>src\DirectX9\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="src\D3DXDebugFont.cpp">
-      <Filter>src\DirectX9\Debug</Filter>
+      <Filter>開発中</Filter>
     </ClCompile>
-    <ClCompile Include="src\D3D9DeviceThread.cpp">
-      <Filter>src\DirectX9\Rednering</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DirectX9Module.cpp">
-      <Filter>src\DirectX9\Rednering</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RenderStateManager.cpp">
-      <Filter>src\DirectX9\Rednering</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SoloPlane.cpp">
+    <ClCompile Include="src\DirectX9\Mesh\SoloPlane.cpp">
       <Filter>src\DirectX9\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Logger.cpp">
+      <Filter>開発中</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\SceneSwitcher.cpp">
+      <Filter>src\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Win32Api\ConsoleModule.cpp">
+      <Filter>src\Win32Api</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Win32Api\WindowModule.cpp">
+      <Filter>src\Win32Api</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\DirectInput8Module.h">
+    <ClInclude Include="Include\DirectInput8\DirectInput8Module.h">
       <Filter>src\DirectInput8</Filter>
     </ClInclude>
-    <ClInclude Include="src\WindowModule.h">
-      <Filter>src\Win32Api</Filter>
+    <ClInclude Include="Include\DirectX9\Rendering\D3D9DeviceThread.h">
+      <Filter>src\DirectX9\Rednering</Filter>
     </ClInclude>
-    <ClInclude Include="src\ConsoleModule.h">
-      <Filter>src\Win32Api</Filter>
+    <ClInclude Include="Include\DirectX9\Rendering\DirectX9Module.h">
+      <Filter>src\DirectX9\Rednering</Filter>
     </ClInclude>
-    <ClInclude Include="src\VertexBuffer.h">
+    <ClInclude Include="Include\DirectX9\Rendering\RenderStateManager.h">
+      <Filter>src\DirectX9\Rednering</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DirectX9\Buffer\Surface.h">
       <Filter>src\DirectX9\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="src\PixelShader.h">
-      <Filter>src\DirectX9\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ShaderBase.h">
-      <Filter>src\DirectX9\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VertexShader.h">
-      <Filter>src\DirectX9\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SceneInterface.h">
-      <Filter>src\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SceneSwitcherr.h">
-      <Filter>src\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="src\FrameKeeper.h">
-      <Filter>src\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Logger.h">
-      <Filter>src\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="src\LightShaderInterface.h">
-      <Filter>src\DirectX9\Shader\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TransformShaderInterface.h">
-      <Filter>src\DirectX9\Shader\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MaterialShaderInterface.h">
-      <Filter>src\DirectX9\Shader\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TextureBuffer.h">
+    <ClInclude Include="Include\DirectX9\Buffer\TextureBuffer.h">
       <Filter>src\DirectX9\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="src\SafeDelete.h">
-      <Filter>src\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Surface.h">
+    <ClInclude Include="Include\DirectX9\Buffer\VertexBuffer.h">
       <Filter>src\DirectX9\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OrthoMatrixInterface.h">
-      <Filter>src\DirectX9\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PerthMatrixInterface.h">
-      <Filter>src\DirectX9\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ViewMatrixInterface.h">
-      <Filter>src\DirectX9\Matrix</Filter>
     </ClInclude>
     <ClInclude Include="src\D3DXDebugFont.h">
-      <Filter>src\DirectX9\Debug</Filter>
+      <Filter>開発中</Filter>
     </ClInclude>
-    <ClInclude Include="src\D3D9DeviceThread.h">
-      <Filter>src\DirectX9\Rednering</Filter>
+    <ClInclude Include="Include\DirectX9\Matrix\OrthoMatrixInterface.h">
+      <Filter>src\DirectX9\Matrix</Filter>
     </ClInclude>
-    <ClInclude Include="src\DirectX9Module.h">
-      <Filter>src\DirectX9\Rednering</Filter>
+    <ClInclude Include="Include\DirectX9\Matrix\PerthMatrixInterface.h">
+      <Filter>src\DirectX9\Matrix</Filter>
     </ClInclude>
-    <ClInclude Include="src\RenderStateManager.h">
-      <Filter>src\DirectX9\Rednering</Filter>
+    <ClInclude Include="Include\DirectX9\Matrix\ViewMatrixInterface.h">
+      <Filter>src\DirectX9\Matrix</Filter>
     </ClInclude>
-    <ClInclude Include="src\SoloPlane.h">
+    <ClInclude Include="Include\DirectX9\Mesh\SoloPlane.h">
       <Filter>src\DirectX9\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DirectX9\Shader\Interface\LightShaderInterface.h">
+      <Filter>src\DirectX9\Shader\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DirectX9\Shader\Interface\MaterialShaderInterface.h">
+      <Filter>src\DirectX9\Shader\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DirectX9\Shader\Interface\TransformShaderInterface.h">
+      <Filter>src\DirectX9\Shader\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DirectX9\Shader\PixelShader.h">
+      <Filter>src\DirectX9\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DirectX9\Shader\ShaderBase.h">
+      <Filter>src\DirectX9\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DirectX9\Shader\VertexShader.h">
+      <Filter>src\DirectX9\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Logger.h">
+      <Filter>開発中</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Util\FrameKeeper.h">
+      <Filter>src\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Util\SafeDelete.h">
+      <Filter>src\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Util\SceneInterface.h">
+      <Filter>src\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Util\SceneSwitcherr.h">
+      <Filter>src\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Win32Api\ConsoleModule.h">
+      <Filter>src\Win32Api</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Win32Api\WindowModule.h">
+      <Filter>src\Win32Api</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Transform.hlsli">
+    <None Include="Include\DirectX9\Shader\hlsl\Light.hlsli">
       <Filter>src\DirectX9\Shader\hlsl</Filter>
     </None>
-    <None Include="src\Light.hlsli">
+    <None Include="Include\DirectX9\Shader\hlsl\Material.hlsli">
       <Filter>src\DirectX9\Shader\hlsl</Filter>
     </None>
-    <None Include="src\Material.hlsli">
+    <None Include="Include\DirectX9\Shader\hlsl\Transform.hlsli">
       <Filter>src\DirectX9\Shader\hlsl</Filter>
     </None>
   </ItemGroup>

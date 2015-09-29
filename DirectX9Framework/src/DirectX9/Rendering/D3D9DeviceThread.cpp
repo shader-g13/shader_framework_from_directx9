@@ -3,7 +3,7 @@
 /// @date 2015/06/26
 /// @author syuki nishida
 
-#include "D3D9DeviceThread.h"
+#include <DirectX9/Rendering/D3D9DeviceThread.h>
 
 /// @namespace snlib
 namespace snlib {

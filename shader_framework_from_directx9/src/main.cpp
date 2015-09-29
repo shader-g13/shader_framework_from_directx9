@@ -14,6 +14,7 @@
 #include "application.h"
 
 #pragma comment(lib, "DirectX9Framework.lib")
+#pragma comment(lib, "d3dx9.lib")
 
 //-----------------------------------------------------------------------------
 //	ƒƒCƒ“ŠÖ”

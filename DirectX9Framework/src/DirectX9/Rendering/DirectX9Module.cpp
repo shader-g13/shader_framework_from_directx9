@@ -3,7 +3,7 @@
 /// @data 2015/04/16
 /// @author syuki nishida
 
-#include "DirectX9Module.h"
+#include <DirectX9/Rendering/DirectX9Module.h>
 #include <crtdbg.h>
 
 #pragma comment(lib, "d3d9.lib")

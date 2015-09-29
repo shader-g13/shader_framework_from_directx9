@@ -42,13 +42,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(ProjectDir)</OutDir>
     <TargetName>$(IntDir)$(ProjectName)</TargetName>
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(ProjectDir)Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(ProjectDir)</OutDir>
     <TargetName>$(IntDir)$(ProjectName)</TargetName>
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(ProjectDir)Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -89,51 +89,51 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ConsoleModule.cpp" />
-    <ClCompile Include="src\D3D9DeviceThread.cpp" />
     <ClCompile Include="src\D3DXDebugFont.cpp" />
-    <ClCompile Include="src\DirectInput8Module.cpp" />
-    <ClCompile Include="src\DirectX9Module.cpp" />
+    <ClCompile Include="src\DirectInput8\DirectInput8Module.cpp" />
+    <ClCompile Include="src\DirectX9\Buffer\Surface.cpp" />
+    <ClCompile Include="src\DirectX9\Buffer\TextureBuffer.cpp" />
+    <ClCompile Include="src\DirectX9\Buffer\VertexBuffer.cpp" />
+    <ClCompile Include="src\DirectX9\Mesh\SoloPlane.cpp" />
+    <ClCompile Include="src\DirectX9\Rendering\D3D9DeviceThread.cpp" />
+    <ClCompile Include="src\DirectX9\Rendering\DirectX9Module.cpp" />
+    <ClCompile Include="src\DirectX9\Rendering\RenderStateManager.cpp" />
     <ClCompile Include="src\Logger.cpp" />
-    <ClCompile Include="src\RenderStateManager.cpp" />
-    <ClCompile Include="src\SceneSwitcher.cpp" />
-    <ClCompile Include="src\SoloPlane.cpp" />
-    <ClCompile Include="src\Surface.cpp" />
-    <ClCompile Include="src\TextureBuffer.cpp" />
-    <ClCompile Include="src\VertexBuffer.cpp" />
-    <ClCompile Include="src\WindowModule.cpp" />
+    <ClCompile Include="src\Util\SceneSwitcher.cpp" />
+    <ClCompile Include="src\Win32Api\ConsoleModule.cpp" />
+    <ClCompile Include="src\Win32Api\WindowModule.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ConsoleModule.h" />
-    <ClInclude Include="src\D3D9DeviceThread.h" />
+    <ClInclude Include="Include\DirectInput8\DirectInput8Module.h" />
+    <ClInclude Include="Include\DirectX9\Buffer\Surface.h" />
+    <ClInclude Include="Include\DirectX9\Buffer\TextureBuffer.h" />
+    <ClInclude Include="Include\DirectX9\Buffer\VertexBuffer.h" />
+    <ClInclude Include="Include\DirectX9\Matrix\OrthoMatrixInterface.h" />
+    <ClInclude Include="Include\DirectX9\Matrix\PerthMatrixInterface.h" />
+    <ClInclude Include="Include\DirectX9\Matrix\ViewMatrixInterface.h" />
+    <ClInclude Include="Include\DirectX9\Mesh\SoloPlane.h" />
+    <ClInclude Include="Include\DirectX9\Rendering\D3D9DeviceThread.h" />
+    <ClInclude Include="Include\DirectX9\Rendering\DirectX9Module.h" />
+    <ClInclude Include="Include\DirectX9\Rendering\RenderStateManager.h" />
+    <ClInclude Include="Include\DirectX9\Shader\Interface\LightShaderInterface.h" />
+    <ClInclude Include="Include\DirectX9\Shader\Interface\MaterialShaderInterface.h" />
+    <ClInclude Include="Include\DirectX9\Shader\Interface\TransformShaderInterface.h" />
+    <ClInclude Include="Include\DirectX9\Shader\PixelShader.h" />
+    <ClInclude Include="Include\DirectX9\Shader\ShaderBase.h" />
+    <ClInclude Include="Include\DirectX9\Shader\VertexShader.h" />
+    <ClInclude Include="Include\Util\FrameKeeper.h" />
+    <ClInclude Include="Include\Util\SafeDelete.h" />
+    <ClInclude Include="Include\Util\SceneInterface.h" />
+    <ClInclude Include="Include\Util\SceneSwitcherr.h" />
+    <ClInclude Include="Include\Win32Api\ConsoleModule.h" />
+    <ClInclude Include="Include\Win32Api\WindowModule.h" />
     <ClInclude Include="src\D3DXDebugFont.h" />
-    <ClInclude Include="src\DirectInput8Module.h" />
-    <ClInclude Include="src\DirectX9Module.h" />
-    <ClInclude Include="src\FrameKeeper.h" />
-    <ClInclude Include="src\LightShaderInterface.h" />
-    <ClInclude Include="src\MaterialShaderInterface.h" />
-    <ClInclude Include="src\OrthoMatrixInterface.h" />
-    <ClInclude Include="src\PerthMatrixInterface.h" />
-    <ClInclude Include="src\PixelShader.h" />
-    <ClInclude Include="src\RenderStateManager.h" />
-    <ClInclude Include="src\SafeDelete.h" />
-    <ClInclude Include="src\ShaderBase.h" />
-    <ClInclude Include="src\SoloPlane.h" />
     <ClInclude Include="src\Logger.h" />
-    <ClInclude Include="src\SceneInterface.h" />
-    <ClInclude Include="src\SceneSwitcherr.h" />
-    <ClInclude Include="src\Surface.h" />
-    <ClInclude Include="src\TextureBuffer.h" />
-    <ClInclude Include="src\TransformShaderInterface.h" />
-    <ClInclude Include="src\VertexBuffer.h" />
-    <ClInclude Include="src\VertexShader.h" />
-    <ClInclude Include="src\ViewMatrixInterface.h" />
-    <ClInclude Include="src\WindowModule.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Light.hlsli" />
-    <None Include="src\Material.hlsli" />
-    <None Include="src\Transform.hlsli" />
+    <None Include="Include\DirectX9\Shader\hlsl\Light.hlsli" />
+    <None Include="Include\DirectX9\Shader\hlsl\Material.hlsli" />
+    <None Include="Include\DirectX9\Shader\hlsl\Transform.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

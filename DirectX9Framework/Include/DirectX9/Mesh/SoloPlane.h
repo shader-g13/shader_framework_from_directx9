@@ -7,7 +7,7 @@
 #ifndef SNLIB_SOLO_PLANE_H_
 #define SNLIB_SOLO_PLANE_H_
 
-#include "VertexBuffer.h"
+#include <DirectX9/Buffer/VertexBuffer.h>
 
 /// @namespace snlib
 namespace snlib {

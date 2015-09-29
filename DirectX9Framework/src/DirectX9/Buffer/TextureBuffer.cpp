@@ -3,7 +3,7 @@
 /// @date 2015/05/11
 /// @author syuki nishida
 
-#include "TextureBuffer.h"
+#include <DirectX9/Buffer/TextureBuffer.h>
 #include <d3dx9.h>
 
 /// @namespace snlib

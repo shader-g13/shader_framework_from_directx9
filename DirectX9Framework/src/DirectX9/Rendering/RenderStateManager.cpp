@@ -3,7 +3,7 @@
 /// @date 2015/06/26
 /// @author syuki nishida
 
-#include "RenderStateManager.h"
+#include <DirectX9/Rendering/RenderStateManager.h>
 
 /// @namespace snlib
 namespace snlib {

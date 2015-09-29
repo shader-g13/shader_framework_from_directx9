@@ -4,7 +4,7 @@
 // Author : Naritada Suzuki
 //
 //=============================================================================
-#include <SafeDelete.h>
+#include <Util/SafeDelete.h>
 #include "LightManager.h"
 
 snlib::LightManager::LightManager(LPD3DXCONSTANTTABLE constant_table)
