@@ -10,6 +10,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shader_framework_from_direc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectX9Framework", "DirectX9Framework\DirectX9Framework.vcxproj", "{B34975D6-E34B-42C8-83B4-03DA5AD0E986}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "adb2le_test", "adb2le_test\adb2le_test.vcxproj", "{8E7BF5B0-1336-4222-A767-B51EA60DC6E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -24,6 +26,10 @@ Global
 		{B34975D6-E34B-42C8-83B4-03DA5AD0E986}.Debug|Win32.Build.0 = Debug|Win32
 		{B34975D6-E34B-42C8-83B4-03DA5AD0E986}.Release|Win32.ActiveCfg = Release|Win32
 		{B34975D6-E34B-42C8-83B4-03DA5AD0E986}.Release|Win32.Build.0 = Release|Win32
+		{8E7BF5B0-1336-4222-A767-B51EA60DC6E1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8E7BF5B0-1336-4222-A767-B51EA60DC6E1}.Debug|Win32.Build.0 = Debug|Win32
+		{8E7BF5B0-1336-4222-A767-B51EA60DC6E1}.Release|Win32.ActiveCfg = Release|Win32
+		{8E7BF5B0-1336-4222-A767-B51EA60DC6E1}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

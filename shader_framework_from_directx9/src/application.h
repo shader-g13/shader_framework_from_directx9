@@ -33,7 +33,5 @@ private:
 
   snlib::DirectX9Module* renderer_;
 
-	//Renderer* renderer_;
-
   TestScene* test_scene_;
 };
