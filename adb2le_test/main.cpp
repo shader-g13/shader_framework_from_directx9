@@ -43,11 +43,6 @@ void main() {
   // ストリーミング用バッファの作成
   dbas = criAtomDbas_Create(NULL, NULL, 0);
 
-  // 全体設定ファイルの登録
-  criAtomEx_RegisterAcfFile(NULL, ACF_FILE, NULL, 0);
-
-  // DSPバス設定の登録
-  criAtomEx_AttachDspBusSetting("DspBusSetting_0", NULL, 0);
 
   // ボイスプールの作成（ストリーム再生対応）
   CriAtomExStandardVoicePoolConfig vpconfig;
@@ -56,6 +51,11 @@ void main() {
   voice_pool = criAtomExVoicePool_AllocateStandardVoicePool(&vpconfig, NULL, 0);
   // MEMO: ストリーム再生無しなら、ボイスプールは構造体NULL指定で可
 
+  // 全体設定ファイルの登録
+  criAtomEx_RegisterAcfFile(NULL, ACF_FILE, NULL, 0);
+
+  // DSPバス設定の登録
+  criAtomEx_AttachDspBusSetting("DspBusSetting_0", NULL, 0);
 
   CriAtomExAcbHn acb_hn;             // ACBハンドル
 
