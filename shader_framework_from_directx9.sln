@@ -5,7 +5,6 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shader_framework_from_directx9", "shader_framework_from_directx9\shader_framework_from_directx9.vcxproj", "{061C7072-AEF9-4F33-9FD7-B17066AD9A18}"
 	ProjectSection(ProjectDependencies) = postProject
-		{450ACF2C-4A69-4B31-8489-45C8C1DFB128} = {450ACF2C-4A69-4B31-8489-45C8C1DFB128}
 		{5E44E78C-26C5-4C3D-9637-FD0F0A7AFDF5} = {5E44E78C-26C5-4C3D-9637-FD0F0A7AFDF5}
 		{B34975D6-E34B-42C8-83B4-03DA5AD0E986} = {B34975D6-E34B-42C8-83B4-03DA5AD0E986}
 	EndProjectSection
@@ -15,8 +14,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "adb2le_test", "adb2le_test\adb2le_test.vcxproj", "{8E7BF5B0-1336-4222-A767-B51EA60DC6E1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Adx2leLap", "Adx2leLap\Adx2leLap.vcxproj", "{5E44E78C-26C5-4C3D-9637-FD0F0A7AFDF5}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KinectLap", "KinectLap\KinectLap.vcxproj", "{450ACF2C-4A69-4B31-8489-45C8C1DFB128}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +37,6 @@ Global
 		{5E44E78C-26C5-4C3D-9637-FD0F0A7AFDF5}.Debug|Win32.Build.0 = Debug|Win32
 		{5E44E78C-26C5-4C3D-9637-FD0F0A7AFDF5}.Release|Win32.ActiveCfg = Release|Win32
 		{5E44E78C-26C5-4C3D-9637-FD0F0A7AFDF5}.Release|Win32.Build.0 = Release|Win32
-		{450ACF2C-4A69-4B31-8489-45C8C1DFB128}.Debug|Win32.ActiveCfg = Debug|Win32
-		{450ACF2C-4A69-4B31-8489-45C8C1DFB128}.Debug|Win32.Build.0 = Debug|Win32
-		{450ACF2C-4A69-4B31-8489-45C8C1DFB128}.Release|Win32.ActiveCfg = Release|Win32
-		{450ACF2C-4A69-4B31-8489-45C8C1DFB128}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
