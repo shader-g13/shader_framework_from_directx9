@@ -15,8 +15,10 @@ struct PixelIn {
 sampler texture0;
 sampler texture1;
 
-float3 lightVec;
-float3 cameraPos;
+float3 lightVec[3];
+float3 lightPos[3];
+float3 specCol[3];
+float specPower[3];
 
 float4 main(PixelIn arg) : COLOR0{
   
@@ -31,17 +33,23 @@ float4 main(PixelIn arg) : COLOR0{
   mul(arg.nor, tbn);
 
   //arg.nor = normalize(arg.nor);
-  float l = dot(arg.nor, -lightVec) * 0.5f + 0.5f;
-  float3 toEye = normalize(cameraPos - arg.wpos);
-    float3 r = reflect(lightVec, arg.nor);
-    float s = pow(max(dot(r, toEye), 0.f), 5);
-  float d = distance(cameraPos, arg.wpos);
-  float a0 = 0.0000000000000000000000000000000000000001f;
-  float a1 = 0.01f;
-  float a2 = 0.00001f;
+  float l = 0;
+  float4 color;
+  for(int i = 0;i < 3;++i)
+  {
+   float3 toEye = normalize(lightPos[i] - arg.wpos);
+    float3 r = reflect(lightVec[i],arg.nor);
+    float s = pow(max(dot(r,toEye),0.f),specPower[i]);
+   float d = distance(lightPos[i],arg.wpos);
+   float a0 = 0.000000000000000000000000000000000000000000000000001f;
+   float a1 = 0.01f;
+   float a2 = 0.00001f;
 
-  float a = a0 + a1 * d + a2 * d * d;
-  return float4((l * arg.col.rgb + s * float3(1, 1, 1)) / a, 1) * tex2D(texture0, arg.tex);
+   float a = a0 + a1 * d + a2 * d * d;
+   color += float4( ( l * arg.col.rgb + s * specCol[i] ) / a,1 );
+  }
+  color.a = 1;
+  return color * tex2D(texture0,arg.tex);
 }
 
 //EOF

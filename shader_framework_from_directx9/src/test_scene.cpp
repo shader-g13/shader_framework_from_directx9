@@ -1,6 +1,9 @@
 #include "test_scene.h"
+#include "input.h"
 /// @brief コンストラクタ
-TestScene::TestScene() {
+TestScene::TestScene():
+rot_(0,0,0)
+{
 }
 
 /// @brief デストラクタ
@@ -40,15 +43,43 @@ void TestScene::Finalize() {
 
 /// @brief 更新
 void TestScene::Update() {
+ rot_.x += 0.01f;
+ rot_.y += 0.01f;
+ rot_.z += 0.01f;
 }
 
 /// @brief 描画
 void TestScene::Draw(LPDIRECT3DDEVICE9 device) {
-  D3DXMATRIX world;
-  D3DXMatrixScaling(&world, 100, 100, 100);
+  D3DXMATRIX world,rot;
+  D3DXMatrixScaling(&world, 80, 80, 80);
   device->SetTransform(D3DTS_PROJECTION, &perth_.CreatePerthMatrix());
   device->SetTransform(D3DTS_VIEW, &view_.CreateViewMatrix());
-  device->SetTransform(D3DTS_WORLD, &world);
+  D3DXMatrixRotationYawPitchRoll(&rot,rot_.y,rot_.x,rot_.z);
+  D3DXMatrixMultiply(&world,&world,&rot);
+  device->SetTransform(D3DTS_WORLD,&world);
+  float specPower[] = 
+  {
+   3,2,1
+  };
+
+  D3DXVECTOR3 specColor[]=
+  {
+   D3DXVECTOR3(0.9f,0.6f,0.9f),
+   D3DXVECTOR3(0.9f,0.9f,0.5f),
+   D3DXVECTOR3(0.8f,0.9f,0.9f),
+  };
+  D3DXVECTOR3 lightVec[] =
+  {
+   D3DXVECTOR3(1,0,-1),
+   D3DXVECTOR3(0,1,0),
+   D3DXVECTOR3(0,-1,1),
+  };
+  D3DXVECTOR3 lightPos[] =
+  {
+   D3DXVECTOR3(10,0,1),
+   D3DXVECTOR3(1,10,-10),
+   D3DXVECTOR3(0,1,10),
+  };
 
   LPD3DXCONSTANTTABLE vs_const = vs_->GetConstantTable();
   vs_const->SetMatrix(device, "ProjectionMatrix", &perth_.CreatePerthMatrix());
@@ -56,8 +87,10 @@ void TestScene::Draw(LPDIRECT3DDEVICE9 device) {
   vs_const->SetMatrix(device, "WorldMatrix", &world);
   vs_const->SetVector(device,"MaterialDiffuse",&D3DXVECTOR4(1,1,1,1));
   LPD3DXCONSTANTTABLE ps_const = ps_->GetConstantTable();
-  ps_const->SetFloatArray(device,"lightVec",D3DXVECTOR3(1,1,1),3);
-  ps_const->SetFloatArray(device,"cameraPos",view_.GetEye(),3);
+  ps_const->SetFloatArray(device,"lightVec",(float*)lightVec,9);
+  ps_const->SetFloatArray(device,"lightPos",(float*)lightPos,9);
+  ps_const->SetFloatArray(device,"specPower",specPower,3);
+  ps_const->SetFloatArray(device,"specCol",(float*)specColor,9);
   
   vs_->SetVertexShader(device);
   ps_->SetPixelShader(device);

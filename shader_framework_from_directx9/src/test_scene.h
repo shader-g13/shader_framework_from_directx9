@@ -40,4 +40,5 @@ private:
   XModel* model_;
   LPDIRECT3DTEXTURE9 texBase_;
   LPDIRECT3DTEXTURE9 texBmp_;
+  D3DXVECTOR3 rot_;
 };

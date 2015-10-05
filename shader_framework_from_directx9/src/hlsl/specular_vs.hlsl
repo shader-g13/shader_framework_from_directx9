@@ -20,17 +20,19 @@ struct VertexOut {
   float4 col : COLOR0;
   float3 nor : TEXCOORD1;
   float3 wpos: TEXCOORD2;
+  float3 norL: TEXCOORD3;
   float3 tan : TANGENT0;
   float3 bin : BINORMAL0;
 };
-
+float3x3 WIT;
 /// @fn main
 /// @brief ÉÅÉCÉì
 VertexOut main(VertexIn arg) {
 
   VertexOut ret;
   ret.pos = Transform(arg.pos);
-  ret.nor = mul(float4(arg.nor, 0.f), GetWorldMatrix()).xyz;
+  ret.nor = mul(float4( arg.nor,0.f ),GetWorldMatrix()).xyz;
+  ret.norL = mul(float4( arg.nor,0.f ),GetWorldMatrix()).xyz;
   ret.wpos = mul(float4(arg.pos, 1.f), GetWorldMatrix()).xyz;
   ret.tex = arg.tex;
   ret.tan = arg.tan;
