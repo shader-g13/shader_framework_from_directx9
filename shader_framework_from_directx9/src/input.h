@@ -18,7 +18,7 @@
 //*****************************************************************************
 HRESULT InitKeyboard(HINSTANCE hInstance, HWND hWnd);	//キー入力初期化関数
 void UninitKeyboard(void);								//キー入力解放関数
-void UpDateKeyboard(void);								//キー入力更新関数
+void UpdateKeyboard(void);								//キー入力更新関数
 bool GetKeyPress(int key);								//キー押下関数
 bool GetKeyTrigger(int key);							//キートリガー関数
 bool GetKeyRelease(int key);							//キーリリース関数

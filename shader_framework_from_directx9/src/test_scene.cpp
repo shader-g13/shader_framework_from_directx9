@@ -1,5 +1,8 @@
 #include "test_scene.h"
 #include "input.h"
+namespace{
+ static const float kRotSpeed = 0.015f;
+}
 /// @brief コンストラクタ
 TestScene::TestScene():
 rot_(0,0,0)
@@ -43,9 +46,30 @@ void TestScene::Finalize() {
 
 /// @brief 更新
 void TestScene::Update() {
- rot_.x += 0.01f;
- rot_.y += 0.01f;
- rot_.z += 0.01f;
+ if(GetKeyPress(DIK_W))
+ {
+  rot_.x += kRotSpeed;
+ }
+ if(GetKeyPress(DIK_S))
+ {
+  rot_.x -= kRotSpeed;
+ }
+ if(GetKeyPress(DIK_A))
+ {
+  rot_.y += kRotSpeed;
+ }
+ if(GetKeyPress(DIK_D))
+ {
+  rot_.y -= kRotSpeed;
+ }
+ if(GetKeyPress(DIK_Q))
+ {
+  rot_.z += kRotSpeed;
+ }
+ if(GetKeyPress(DIK_E))
+ {
+  rot_.z -= kRotSpeed;
+ }
 }
 
 /// @brief 描画
@@ -59,14 +83,14 @@ void TestScene::Draw(LPDIRECT3DDEVICE9 device) {
   device->SetTransform(D3DTS_WORLD,&world);
   float specPower[] = 
   {
-   3,2,1
+   5,5,5
   };
 
   D3DXVECTOR3 specColor[]=
   {
-   D3DXVECTOR3(0.9f,0.6f,0.9f),
-   D3DXVECTOR3(0.9f,0.9f,0.5f),
-   D3DXVECTOR3(0.8f,0.9f,0.9f),
+   D3DXVECTOR3(0.6f,0.3f,0.6f),
+   D3DXVECTOR3(0.6f,0.6f,0.3f),
+   D3DXVECTOR3(0.4f,0.6f,0.6f),
   };
   D3DXVECTOR3 lightVec[] =
   {
@@ -77,8 +101,8 @@ void TestScene::Draw(LPDIRECT3DDEVICE9 device) {
   D3DXVECTOR3 lightPos[] =
   {
    D3DXVECTOR3(10,0,1),
-   D3DXVECTOR3(1,10,-10),
-   D3DXVECTOR3(0,1,10),
+   D3DXVECTOR3(1,10,0),
+   D3DXVECTOR3(0,-11,0),
   };
 
   LPD3DXCONSTANTTABLE vs_const = vs_->GetConstantTable();
@@ -101,5 +125,7 @@ void TestScene::Draw(LPDIRECT3DDEVICE9 device) {
 
   model_->Draw(device);
 }
+
+
 
 // EOF

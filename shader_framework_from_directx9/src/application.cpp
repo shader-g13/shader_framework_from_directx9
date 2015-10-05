@@ -1,8 +1,9 @@
 
 #include "application.h"
 #include <SafeDelete.h>
-
+#include "input.h"
 using namespace snlib;
+
 
 /// @brief コンストラクタ
 Application::Application(HINSTANCE instance_handle) :
@@ -31,7 +32,7 @@ test_scene_(nullptr) {
   // レンダラー初期化
   renderer_ = new Renderer();
   renderer_->Initialize(window_->GetWindowHandle(), 800, 600);
-
+  InitKeyboard(instance_handle,window_->GetWindowHandle());
   LPDIRECT3DDEVICE9 device = renderer_->GetDevice();
 
   test_scene_ = new TestScene();
@@ -51,6 +52,7 @@ Application::~Application() {
 
   // フレームキーパー終了
   snlib::SafeDelete(frame_keeper_);
+  UninitKeyboard();
 
   // ウィンドウ終了
   window_->Finalize();
@@ -59,6 +61,7 @@ Application::~Application() {
 
 /// @brief 更新
 void Application::Update() {
+ UpdateKeyboard();
   test_scene_->Update();
 }
 
