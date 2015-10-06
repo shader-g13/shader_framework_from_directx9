@@ -104,12 +104,15 @@ void TestScene::Draw(LPDIRECT3DDEVICE9 device) {
    D3DXVECTOR3(1,10,0),
    D3DXVECTOR3(0,-11,0),
   };
-
+  D3DXMATRIX WIT;
+  D3DXMatrixInverse(&WIT,0,&world);
+  D3DXMatrixTranspose(&WIT,&WIT);
   LPD3DXCONSTANTTABLE vs_const = vs_->GetConstantTable();
   vs_const->SetMatrix(device, "ProjectionMatrix", &perth_.CreatePerthMatrix());
   vs_const->SetMatrix(device, "ViewMatrix", &view_.CreateViewMatrix());
   vs_const->SetMatrix(device, "WorldMatrix", &world);
   vs_const->SetVector(device,"MaterialDiffuse",&D3DXVECTOR4(1,1,1,1));
+  vs_const->SetMatrix(device,"WIT",&WIT);
   LPD3DXCONSTANTTABLE ps_const = ps_->GetConstantTable();
   ps_const->SetFloatArray(device,"lightVec",(float*)lightVec,9);
   ps_const->SetFloatArray(device,"lightPos",(float*)lightPos,9);
