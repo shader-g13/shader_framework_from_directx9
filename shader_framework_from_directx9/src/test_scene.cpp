@@ -95,14 +95,14 @@ void TestScene::Draw(LPDIRECT3DDEVICE9 device) {
   D3DXVECTOR3 lightVec[] =
   {
    D3DXVECTOR3(1,0,-1),
-   D3DXVECTOR3(0,1,0),
+   D3DXVECTOR3(-1,1,0),
    D3DXVECTOR3(0,-1,1),
   };
   D3DXVECTOR3 lightPos[] =
   {
-   D3DXVECTOR3(10,0,1),
-   D3DXVECTOR3(1,10,0),
-   D3DXVECTOR3(0,-11,0),
+   D3DXVECTOR3(20,0,1),
+   D3DXVECTOR3(-20,0,0),
+   D3DXVECTOR3(0,-21,0),
   };
   D3DXMATRIX WIT;
   D3DXMatrixInverse(&WIT,0,&world);
