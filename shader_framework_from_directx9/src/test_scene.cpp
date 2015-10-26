@@ -1,5 +1,6 @@
 #include "test_scene.h"
 #include "input.h"
+#include "CRenderTarget.h"
 namespace{
  static const float kRotSpeed = 0.03f;
 }
@@ -30,6 +31,11 @@ void TestScene::Initialize(LPDIRECT3DDEVICE9 device) {
    D3DXCreateTextureFromFile(device,"data/texture/Base.bmp",&texBase_);
    D3DXCreateTextureFromFile(device,"data/texture/Metal_Normal.bmp",&texBmp_);
    D3DXCreateCubeTextureFromFile(device,"data/texture/LobbyCube.dds",&texCube_);
+   for(int i = 0;i < 4;++i)
+   {
+    _renderTarget[i] = new CRenderTarget;
+    _renderTarget[i]->initRender(device);
+   }
 }
 
 /// @brief I—¹
@@ -78,6 +84,9 @@ void TestScene::Update() {
 
 /// @brief •`‰æ
 void TestScene::Draw(LPDIRECT3DDEVICE9 device) {
+ device->SetRenderTarget(1,_renderTarget[0]->surface());
+ device->SetRenderTarget(2,_renderTarget[2]->surface());
+ device->SetRenderTarget(3,_renderTarget[3]->surface());
   D3DXMATRIX world,rot;
   D3DXMatrixScaling(&world, 70, 70, 70);
   device->SetTransform(D3DTS_PROJECTION, &perth_.CreatePerthMatrix());
