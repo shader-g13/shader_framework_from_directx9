@@ -1,7 +1,7 @@
 #include "test_scene.h"
 #include "input.h"
 namespace{
- static const float kRotSpeed = 0.015f;
+ static const float kRotSpeed = 0.03f;
 }
 /// @brief コンストラクタ
 TestScene::TestScene():
@@ -19,13 +19,17 @@ void TestScene::Initialize(LPDIRECT3DDEVICE9 device) {
   plane_->Initialize(device);
 
   model_ = new XModel();
-  model_->Initialize(device, "res/box.x");
+  model_->Initialize(device, "data/model/box.x");
 
-  vs_ = new VertexShader(device, "res/shader/specular_vs.cso");
-  ps_ = new PixelShader(device, "res/shader/bump_ps.cso");
+  skyBox_ = new XModel();
+  skyBox_->Initialize(device,"data/model/lobby_skybox.x");
 
-   D3DXCreateTextureFromFile(device,"res/Base.bmp",&texBase_);
-   D3DXCreateTextureFromFile(device,"res/Metal_Normal.bmp",&texBmp_);
+  vs_ = new VertexShader(device, "data/shader/specularLight.cso");
+  ps_ = new PixelShader(device, "data/shader/normalBump.cso");
+
+   D3DXCreateTextureFromFile(device,"data/texture/Base.bmp",&texBase_);
+   D3DXCreateTextureFromFile(device,"data/texture/Metal_Normal.bmp",&texBmp_);
+   D3DXCreateCubeTextureFromFile(device,"data/texture/LobbyCube.dds",&texCube_);
 }
 
 /// @brief 終了
@@ -75,7 +79,7 @@ void TestScene::Update() {
 /// @brief 描画
 void TestScene::Draw(LPDIRECT3DDEVICE9 device) {
   D3DXMATRIX world,rot;
-  D3DXMatrixScaling(&world, 80, 80, 80);
+  D3DXMatrixScaling(&world, 70, 70, 70);
   device->SetTransform(D3DTS_PROJECTION, &perth_.CreatePerthMatrix());
   device->SetTransform(D3DTS_VIEW, &view_.CreateViewMatrix());
   D3DXMatrixRotationYawPitchRoll(&rot,rot_.y,rot_.x,rot_.z);
@@ -83,26 +87,29 @@ void TestScene::Draw(LPDIRECT3DDEVICE9 device) {
   device->SetTransform(D3DTS_WORLD,&world);
   float specPower[] = 
   {
-   5,5,5
+   5,5,5,3
   };
 
   D3DXVECTOR3 specColor[]=
   {
-   D3DXVECTOR3(0.6f,0.3f,0.6f),
-   D3DXVECTOR3(0.6f,0.6f,0.3f),
+   D3DXVECTOR3(0.6f,0.3f,0.8f),
+   D3DXVECTOR3(0.6f,0.9f,0.2f),
    D3DXVECTOR3(0.4f,0.6f,0.6f),
+   D3DXVECTOR3(0.1f,0.2f,0.6f),
   };
   D3DXVECTOR3 lightVec[] =
   {
    D3DXVECTOR3(1,0,-1),
    D3DXVECTOR3(-1,1,0),
    D3DXVECTOR3(0,-1,1),
+   D3DXVECTOR3(1,0,-1),
   };
   D3DXVECTOR3 lightPos[] =
   {
    D3DXVECTOR3(20,0,1),
    D3DXVECTOR3(-20,0,0),
    D3DXVECTOR3(0,-21,0),
+   D3DXVECTOR3(40,10,1),
   };
   D3DXMATRIX WIT;
   D3DXMatrixInverse(&WIT,0,&world);
@@ -114,19 +121,28 @@ void TestScene::Draw(LPDIRECT3DDEVICE9 device) {
   vs_const->SetVector(device,"MaterialDiffuse",&D3DXVECTOR4(1,1,1,1));
   vs_const->SetMatrix(device,"WIT",&WIT);
   LPD3DXCONSTANTTABLE ps_const = ps_->GetConstantTable();
-  ps_const->SetFloatArray(device,"lightVec",(float*)lightVec,9);
-  ps_const->SetFloatArray(device,"lightPos",(float*)lightPos,9);
-  ps_const->SetFloatArray(device,"specPower",specPower,3);
-  ps_const->SetFloatArray(device,"specCol",(float*)specColor,9);
+  ps_const->SetFloatArray(device,"lightVec",(float*)lightVec,12);
+  ps_const->SetFloatArray(device,"lightPos",(float*)lightPos,12);
+  ps_const->SetFloatArray(device,"specPower",specPower,4);
+  ps_const->SetFloatArray(device,"specCol",(float*)specColor,12);
   
   vs_->SetVertexShader(device);
   ps_->SetPixelShader(device);
   device->SetTexture(0,texBase_);
   device->SetTexture(1,texBmp_);
+  device->SetTexture(ps_const->GetSamplerIndex("textureC"),texCube_);
+  ps_const->SetBool(device,"skybox",false);
 
   plane_->Draw(device);
 
   model_->Draw(device);
+  D3DXMatrixIdentity(&world);
+  device->SetTransform(D3DTS_WORLD,&world);
+  vs_const->SetMatrix(device,"ProjectionMatrix",&perth_.CreatePerthMatrix());
+  vs_const->SetMatrix(device,"ViewMatrix",&view_.CreateViewMatrix());
+  //vs_const->SetMatrix(device,"WorldMatrix",&world);
+  ps_const->SetBool(device,"skybox",true);
+  skyBox_->Draw(device);
 }
 
 

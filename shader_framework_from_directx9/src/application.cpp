@@ -12,7 +12,7 @@ renderer_(nullptr),
 test_scene_(nullptr) {
 
   // ウィンドウ初期化
-  window_ = new snlib::WindowModule(L"shader framework", 800, 600, instance_handle_);
+  window_ = new snlib::WindowModule(L"SP42 バンプマッピング", 800, 600, instance_handle_);
   window_->Initialize();
   window_->SetMessageCallback(WM_DESTROY, [](HWND, WPARAM, LPARAM) {
     PostQuitMessage(0);

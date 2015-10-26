@@ -14,11 +14,14 @@ struct PixelIn {
 
 sampler texture0;
 sampler texture1;
+sampler textureC;
 
-float3 lightVec[3];
-float3 lightPos[3];
-float3 specCol[3];
-float specPower[3];
+float3 lightVec[4];
+float3 lightPos[4];
+float3 specCol[4];
+float specPower[4];
+float3 camPos = float3( 0,0,0 );
+bool skybox = false;
 
 float4 main(PixelIn arg) : COLOR0{
   
@@ -35,21 +38,32 @@ float4 main(PixelIn arg) : COLOR0{
   //arg.nor = normalize(arg.nor);
   float l = 0;
   float4 color;
-  for(int i = 0;i < 3;++i)
+  for(int i = 0;i < 4;++i)
   {
    float3 toEye = normalize(lightPos[i] - arg.wpos);
     float3 r = reflect(lightVec[i],arg.nor);
     float s = pow(max(dot(r,toEye),0.f),specPower[i]);
    float d = distance(lightPos[i],arg.wpos);
    float a0 = 0.000000000000000000000000000000000000000000000000001f;
-   float a1 = 0.01f;
+   float a1 = 0.02f;
    float a2 = 0.0001f;
 
    float a = a0 + a1 * d + a2 * d * d;
    color += float4( ( l * arg.col.rgb + s * specCol[i] ) / a,1 );
   }
   color.a = 1;
-  return color * tex2D(texture0,arg.tex);
+  if(skybox)
+  {
+   float3 toEye = normalize(camPos - arg.wpos);
+   float3 enbVec = reflect(toEye,arg.nor);
+    return texCUBE(textureC,enbVec);
+  }
+  else{
+   float3 toEye = normalize(arg.wpos - camPos);
+    float3 enbVec = reflect(toEye,arg.nor);
+    return color * texCUBE(textureC,enbVec);
+  }
+  
 }
 
 //EOF

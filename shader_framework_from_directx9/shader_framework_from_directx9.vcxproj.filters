@@ -83,16 +83,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="src\hlsl\test_ps.hlsl">
+    <FxCompile Include="src\hlsl\specularLight.hlsl">
       <Filter>src\hlsl</Filter>
     </FxCompile>
-    <FxCompile Include="src\hlsl\test_vs.hlsl">
-      <Filter>src\hlsl</Filter>
-    </FxCompile>
-    <FxCompile Include="src\hlsl\bump_ps.hlsl">
-      <Filter>src\hlsl</Filter>
-    </FxCompile>
-    <FxCompile Include="src\hlsl\specular_vs.hlsl">
+    <FxCompile Include="src\hlsl\normalBump.hlsl">
       <Filter>src\hlsl</Filter>
     </FxCompile>
   </ItemGroup>

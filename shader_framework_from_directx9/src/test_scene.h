@@ -38,7 +38,9 @@ private:
 
   Plane* plane_;
   XModel* model_;
+  XModel* skyBox_;
   LPDIRECT3DTEXTURE9 texBase_;
   LPDIRECT3DTEXTURE9 texBmp_;
   D3DXVECTOR3 rot_;
+  LPDIRECT3DCUBETEXTURE9 texCube_;
 };
