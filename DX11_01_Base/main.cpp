@@ -341,17 +341,17 @@ void InitPolygon(void)
 	// 頂点バッファ生成
 	Vertex3D *vertex = new Vertex3D[4];
 
-	vertex[0].Position = XMFLOAT3( -10.0f, 0.0f, 10.0f );
-	vertex[0].TexCoord = XMFLOAT2( 0.0f, 0.0f );
+	vertex[0].Position = Vector3( -10.0f, 0.0f, 10.0f );
+ vertex[0].TexCoord = Vector2(0.0f,0.0f);
 
-	vertex[1].Position = XMFLOAT3( 10.0f, 0.0f, 10.0f );
-	vertex[1].TexCoord = XMFLOAT2( 1.0f, 0.0f );
+ vertex[1].Position = Vector3(10.0f,0.0f,10.0f);
+ vertex[1].TexCoord = Vector2(1.0f,0.0f);
 
-	vertex[2].Position = XMFLOAT3( -10.0f, 0.0f, -10.0f );
-	vertex[2].TexCoord = XMFLOAT2( 0.0f, 1.0f );
+ vertex[2].Position = Vector3(-10.0f,0.0f,-10.0f);
+ vertex[2].TexCoord = Vector2(0.0f,1.0f);
 
-	vertex[3].Position = XMFLOAT3( 10.0f, 0.0f, -10.0f );
-	vertex[3].TexCoord = XMFLOAT2( 1.0f, 1.0f );
+ vertex[3].Position = Vector3(10.0f,0.0f,-10.0f);
+ vertex[3].TexCoord = Vector2(1.0f,1.0f);
 
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory( &bd, sizeof(bd) );
@@ -371,11 +371,15 @@ void InitPolygon(void)
  TexMetadata meta;
  ScratchImage image;
 	// テクスチャ生成
- LoadFromWICFile(L"data/field004.jpg",
+ hr = LoadFromDDSFile(L"data/field004.dds",
                  0,
                  &meta,
                  image);
- CreateShaderResourceView(g_pD3DDevice,image.GetImages(),image.GetImageCount(),image.GetMetadata(),&g_pShaderResView);
+ 
+ _ASSERT_EXPR(SUCCEEDED(hr),L"LoadFromWICFile失敗");
+
+ hr = CreateShaderResourceView(g_pD3DDevice,image.GetImages(),image.GetImageCount(),image.GetMetadata(),&g_pShaderResView);
+ _ASSERT_EXPR(SUCCEEDED(hr),L"CreateShaderResourceView失敗");
 
 }
 
