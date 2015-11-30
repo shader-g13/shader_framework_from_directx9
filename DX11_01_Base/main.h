@@ -28,6 +28,7 @@
 struct Vertex3D
 {
     DirectX::SimpleMath::Vector3 Position;
+    DirectX::SimpleMath::Vector3 Normal;
     DirectX::SimpleMath::Vector2 TexCoord;
 };
 
@@ -35,6 +36,10 @@ struct Vertex3D
 struct ConstantBuffer
 {
  DirectX::SimpleMath::Matrix WorldViewProjection;
+ DirectX::SimpleMath::Matrix NormalMtx;
+ DirectX::SimpleMath::Vector4 LightVec;
+ DirectX::SimpleMath::Vector4 LightCol;
+
 };
 
 #endif

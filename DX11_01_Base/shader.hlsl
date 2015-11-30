@@ -2,28 +2,40 @@
 
 cbuffer ConstantBuffer : register( b0 )
 {
-	matrix WorldViewProjection;
+ row_major matrix WorldViewProjection;
+ row_major matrix NormalMtx;
+ float4 LightVec;
+ float4 LightCol;
 }
+struct StandardInputLayout {
+ float4 pos : POSITION;
+ float3 nor : NORMAL;
+ float2 tex : TEXCOORD;
+};
 
+struct VertexOut {
+ float4 pos : SV_POSITION;
+ float2 tex : TEXCOORD;
+ float3 nor : NORMAL;
+};
 
-void VertexShaderPolygon( in  float4 inPosition : POSITION0,
-						  in  float2 inTexCoord : TEXCOORD0,
-						  out float4 outPosition : SV_POSITION,
-						  out float2 outTexCoord : TEXCOORD0 )
+VertexOut VertexShaderPolygon(StandardInputLayout arg)
 {
-	outPosition = mul( inPosition, WorldViewProjection );
-	outTexCoord = inTexCoord;
+ VertexOut ret;
+	ret.pos = mul( arg.pos, WorldViewProjection );
+	ret.tex = arg.tex;
+ ret.nor = mul(float4( arg.nor,1 ),NormalMtx).xyz;
+ ret.nor = normalize(ret.nor);
+ return ret;
 }
-
-
 
 Texture2D		g_Texture : register( t0 );
+
 SamplerState	g_SamplerState : register( s0 );
 
 
-void PixelShaderPolygon( in  float4 inPosition : POSITION0,
-						 in  float2 inTexCoord : TEXCOORD0,
-						 out float4 outDiffuse : SV_Target )
+float4 PixelShaderPolygon(VertexOut arg):SV_Target
 {
-    outDiffuse = g_Texture.Sample( g_SamplerState, inTexCoord );
+ float p = max(dot(normalize(arg.nor),-normalize(LightVec.xyz)),0) * 0.5f + 0.5f;
+ return float4( g_Texture.Sample(g_SamplerState,arg.tex).rgb * LightCol.rgb * p,1 );
 }

@@ -233,8 +233,9 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// 入力レイアウト生成
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 4*3, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+  {"POSITION",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
+  {"NORMAL",0,DXGI_FORMAT_R32G32B32_FLOAT,0,4 * 3,D3D11_INPUT_PER_VERTEX_DATA,0},
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 4 * 3 * 2, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 	UINT numElements = ARRAYSIZE( layout );
 
@@ -341,16 +342,20 @@ void InitPolygon(void)
 	// 頂点バッファ生成
 	Vertex3D *vertex = new Vertex3D[4];
 
-	vertex[0].Position = Vector3( -10.0f, 0.0f, 10.0f );
+	vertex[0].Position = Vector3( -0.5f, 0.5f, 0.0f );
+ vertex[0].Normal = Vector3(0.0f,0.0f,-1.0f);
  vertex[0].TexCoord = Vector2(0.0f,0.0f);
 
- vertex[1].Position = Vector3(10.0f,0.0f,10.0f);
+ vertex[1].Position = Vector3(0.5f,0.5f,0.0f);
+ vertex[1].Normal = Vector3(0.0f,0.0f,-1.0f);
  vertex[1].TexCoord = Vector2(1.0f,0.0f);
 
- vertex[2].Position = Vector3(-10.0f,0.0f,-10.0f);
+ vertex[2].Position = Vector3(-0.5f,-0.5f,0.0f);
+ vertex[2].Normal = Vector3(0.0f,0.0f,-1.0f);
  vertex[2].TexCoord = Vector2(0.0f,1.0f);
 
- vertex[3].Position = Vector3(10.0f,0.0f,-10.0f);
+ vertex[3].Position = Vector3(0.5f,-0.5f,0.0f);
+ vertex[3].Normal = Vector3(0.0f,0.0f,-1.0f);
  vertex[3].TexCoord = Vector2(1.0f,1.0f);
 
 	D3D11_BUFFER_DESC bd;
@@ -423,27 +428,100 @@ void DrawPolygon(void)
 	g_pImmediateContext->VSSetShader( g_pVertexShader, NULL, 0 );
 	g_pImmediateContext->PSSetShader( g_pPixelShader, NULL, 0 );
 
-	// テクスチャ設定
-	g_pImmediateContext->PSSetShaderResources( 0, 1, &g_pShaderResView );
 
 
 	// マトリクス設定
-	XMMATRIX world, view, projection, worldViewProjection;
-
-	world = XMMatrixIdentity();
-	view = XMMatrixLookAtLH( XMVectorSet( 0.0f, 10.0f, -20.0f, 1.0f ),
-							 XMVectorSet( 0.0f, 0.0f, 0.0f, 1.0f ),
-							 XMVectorSet( 0.0f, 1.0f, 0.0f, 1.0f ) );
-	projection = XMMatrixPerspectiveFovLH( 1.0f, (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.0f, 100.0f );
-	worldViewProjection = world * view * projection;
-
-	ConstantBuffer cb;
-	cb.WorldViewProjection = XMMatrixTranspose( worldViewProjection );
-	g_pImmediateContext->UpdateSubresource( g_pConstantBuffer, 0, NULL, &cb, 0, 0 );
-	g_pImmediateContext->VSSetConstantBuffers( 0, 1, &g_pConstantBuffer );
-
-
-	// ポリゴン描画
+	Matrix world, view, projection,camera_rot;
+ //下準備
+ static Vector3 box_rot(0,0,0);
+ static float cam_rot = 0;
+ cam_rot += 0.001f;
+ ConstantBuffer cb;
+ g_pImmediateContext->VSSetConstantBuffers(0,1,&g_pConstantBuffer);
+ g_pImmediateContext->PSSetConstantBuffers(0,1,&g_pConstantBuffer);
+ world = Matrix::Identity;
+ camera_rot = Matrix::CreateRotationY(cam_rot);
+ view = Matrix::CreateLookAt(Vector3::Transform(Vector3(0.0f,2.0f,-3.0f),camera_rot),
+                             Vector3(0.0f,0.0f,0.0f),
+                             Vector3(0.0f,1.0f,0.0f));
+	projection = Matrix::CreatePerspectiveFieldOfView( 1.0f, (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f );
+ float box_scl = 1.0f;
+ Vector3 box_pos(0,0.5,0);
+ box_rot.x += 0.005f;
+ box_rot.y += 0.005f;
+ Matrix box_offse = Matrix::CreateTranslation(0,0,-0.5f);
+ cb.LightCol = Vector4(1,1,1,1);
+ cb.LightVec = Vector4(-1,-1,1,1);
+ cb.LightVec.Normalize(cb.LightVec);
+ //床
+ world = Matrix::CreateScale(10.0f) * Matrix::CreateRotationX(XMConvertToRadians(90)) * Matrix::CreateTranslation(Vector3(0,0,0));
+ cb.WorldViewProjection = world * view * projection;
+ cb.NormalMtx = ( world.Invert() ).Transpose();
+ g_pImmediateContext->UpdateSubresource(g_pConstantBuffer,0,NULL,&cb,0,0);
+ // テクスチャ設定
+ g_pImmediateContext->PSSetShaderResources(0,1,&g_pShaderResView);
+ // ポリゴン描画
 	g_pImmediateContext->Draw( 4, 0 );
+
+ //上面
+ world = box_offse * Matrix::CreateScale(box_scl) * Matrix::CreateRotationX(XMConvertToRadians(90)) * Matrix::CreateFromYawPitchRoll(box_rot.y,box_rot.x,box_rot.z) * Matrix::CreateTranslation(box_pos);
+ cb.WorldViewProjection = world * view * projection;
+ cb.NormalMtx = ( world.Invert() ).Transpose();
+ g_pImmediateContext->UpdateSubresource(g_pConstantBuffer,0,NULL,&cb,0,0);
+ // テクスチャ設定
+ g_pImmediateContext->PSSetShaderResources(0,1,&g_pShaderResView);
+ // ポリゴン描画
+ g_pImmediateContext->Draw(4,0);
+
+ //底面
+ world = box_offse * Matrix::CreateScale(box_scl) * Matrix::CreateRotationX(XMConvertToRadians(-90)) * Matrix::CreateFromYawPitchRoll(box_rot.y,box_rot.x,box_rot.z) * Matrix::CreateTranslation(box_pos);
+ cb.WorldViewProjection = world * view * projection;
+ cb.NormalMtx = ( world.Invert() ).Transpose();
+ g_pImmediateContext->UpdateSubresource(g_pConstantBuffer,0,NULL,&cb,0,0);
+ // テクスチャ設定
+ g_pImmediateContext->PSSetShaderResources(0,1,&g_pShaderResView);
+ // ポリゴン描画
+ g_pImmediateContext->Draw(4,0);
+
+ //前面
+ world = box_offse * Matrix::CreateScale(box_scl) * Matrix::CreateRotationX(XMConvertToRadians(0)) * Matrix::CreateFromYawPitchRoll(box_rot.y,box_rot.x,box_rot.z) * Matrix::CreateTranslation(box_pos);
+ cb.WorldViewProjection = world * view * projection;
+ cb.NormalMtx = ( world.Invert() ).Transpose();
+ g_pImmediateContext->UpdateSubresource(g_pConstantBuffer,0,NULL,&cb,0,0);
+ // テクスチャ設定
+ g_pImmediateContext->PSSetShaderResources(0,1,&g_pShaderResView);
+ // ポリゴン描画
+ g_pImmediateContext->Draw(4,0);
+
+ //前面
+ world = box_offse * Matrix::CreateScale(box_scl) * Matrix::CreateRotationY(XMConvertToRadians(180)) * Matrix::CreateFromYawPitchRoll(box_rot.y,box_rot.x,box_rot.z) * Matrix::CreateTranslation(box_pos);
+ cb.WorldViewProjection = world * view * projection;
+ cb.NormalMtx = ( world.Invert() ).Transpose();
+ g_pImmediateContext->UpdateSubresource(g_pConstantBuffer,0,NULL,&cb,0,0);
+ // テクスチャ設定
+ g_pImmediateContext->PSSetShaderResources(0,1,&g_pShaderResView);
+ // ポリゴン描画
+ g_pImmediateContext->Draw(4,0);
+
+ //右面
+ world = box_offse * Matrix::CreateScale(box_scl) * Matrix::CreateRotationY(XMConvertToRadians(90)) * Matrix::CreateFromYawPitchRoll(box_rot.y,box_rot.x,box_rot.z) * Matrix::CreateTranslation(box_pos);
+ cb.WorldViewProjection = world * view * projection;
+ cb.NormalMtx = ( world.Invert() ).Transpose();
+ g_pImmediateContext->UpdateSubresource(g_pConstantBuffer,0,NULL,&cb,0,0);
+ // テクスチャ設定
+ g_pImmediateContext->PSSetShaderResources(0,1,&g_pShaderResView);
+ // ポリゴン描画
+ g_pImmediateContext->Draw(4,0);
+
+ //左面
+ world = box_offse * Matrix::CreateScale(box_scl) * Matrix::CreateRotationY(XMConvertToRadians(-90)) * Matrix::CreateFromYawPitchRoll(box_rot.y,box_rot.x,box_rot.z) * Matrix::CreateTranslation(box_pos);
+ cb.WorldViewProjection = world * view * projection;
+ cb.NormalMtx = ( world.Invert() ).Transpose();
+ g_pImmediateContext->UpdateSubresource(g_pConstantBuffer,0,NULL,&cb,0,0);
+ // テクスチャ設定
+ g_pImmediateContext->PSSetShaderResources(0,1,&g_pShaderResView);
+ // ポリゴン描画
+ g_pImmediateContext->Draw(4,0);
+
 }
 
