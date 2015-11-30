@@ -7,7 +7,7 @@ struct PixelIn {
   float2 tex : TEXCOORD0;
   float4 col : COLOR0;
   float3 nor : TEXCOORD1;
-  float3 wpos: TEXCOORD2;
+  float4 wpos: TEXCOORD2;
   float3 tan : TANGENT0;
   float3 bin : BINORMAL0;
 };
@@ -73,7 +73,13 @@ OUT_PS main(PixelIn arg): COLOR0{
   //}
   //
  OUT_PS outColor = (OUT_PS)0;
- outColor.colorR = float4(1,0,0,1);
+ outColor.colorR = arg.col * tex2D( texture1,arg.tex );
+ outColor.colorR.a = 1.0f;
+ outColor.colorG.xyz = arg.nor;
+ outColor.colorG.a = 1.0f;
+ outColor.colorB.xyz = arg.wpos;
+ outColor.colorB.a = 1.0f;
+ outColor.zvalue = arg.wpos.z / arg.wpos.w;
  return outColor;
 }
 

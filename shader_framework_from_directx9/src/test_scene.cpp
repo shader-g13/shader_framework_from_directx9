@@ -1,6 +1,5 @@
 #include "test_scene.h"
 #include "input.h"
-#include "CRenderTarget.h"
 namespace{
  static const float kRotSpeed = 0.03f;
 }
@@ -31,18 +30,18 @@ void TestScene::Initialize(LPDIRECT3DDEVICE9 device) {
    D3DXCreateTextureFromFile(device,"data/texture/Base.bmp",&texBase_);
    D3DXCreateTextureFromFile(device,"data/texture/Metal_Normal.bmp",&texBmp_);
    D3DXCreateCubeTextureFromFile(device,"data/texture/LobbyCube.dds",&texCube_);
-   for(int i = 0;i < 4;++i)
-   {
-    _renderTarget[i] = new CRenderTarget;
-    _renderTarget[i]->initRender(device);
-   }
+   _surface = new snlib::Surface(device,800,600,4);
+   _surface->SaveCurrentSurface(device);
+   _surface->BeginSurface(device);
+   _surface->SetSaveSurface(device);
 }
 
 /// @brief I—¹
 void TestScene::Finalize() {
   delete vs_;
   delete ps_;
-
+  skyBox_->Finalize();
+  delete skyBox_;
   model_->Finalize();
   delete model_;
 
@@ -51,7 +50,13 @@ void TestScene::Finalize() {
 
   texBase_->Release();
   texBmp_->Release();
+  texCube_->Release();
 
+  if(_surface)
+  {
+   _surface->DeleteSaveSurface();
+   delete _surface;
+  }
 }
 
 /// @brief XV
@@ -84,10 +89,9 @@ void TestScene::Update() {
 
 /// @brief •`‰æ
 void TestScene::Draw(LPDIRECT3DDEVICE9 device) {
- device->SetRenderTarget(1,_renderTarget[0]->surface());
- device->SetRenderTarget(2,_renderTarget[2]->surface());
- device->SetRenderTarget(3,_renderTarget[3]->surface());
-  D3DXMATRIX world,rot;
+ _surface->SetSurface(device);
+
+ D3DXMATRIX world,rot;
   D3DXMatrixScaling(&world, 70, 70, 70);
   device->SetTransform(D3DTS_PROJECTION, &perth_.CreatePerthMatrix());
   device->SetTransform(D3DTS_VIEW, &view_.CreateViewMatrix());
@@ -134,14 +138,13 @@ void TestScene::Draw(LPDIRECT3DDEVICE9 device) {
   ps_const->SetFloatArray(device,"lightPos",(float*)lightPos,12);
   ps_const->SetFloatArray(device,"specPower",specPower,4);
   ps_const->SetFloatArray(device,"specCol",(float*)specColor,12);
-  
+  ps_const->SetBool(device,"skybox",false);
+
   vs_->SetVertexShader(device);
   ps_->SetPixelShader(device);
   device->SetTexture(0,texBase_);
   device->SetTexture(1,texBmp_);
   device->SetTexture(ps_const->GetSamplerIndex("textureC"),texCube_);
-  ps_const->SetBool(device,"skybox",false);
-
   plane_->Draw(device);
 
   model_->Draw(device);
@@ -150,8 +153,25 @@ void TestScene::Draw(LPDIRECT3DDEVICE9 device) {
   vs_const->SetMatrix(device,"ProjectionMatrix",&perth_.CreatePerthMatrix());
   vs_const->SetMatrix(device,"ViewMatrix",&view_.CreateViewMatrix());
   //vs_const->SetMatrix(device,"WorldMatrix",&world);
-  ps_const->SetBool(device,"skybox",true);
   skyBox_->Draw(device);
+  _surface->SetSaveSurface(device);
+  ps_const->SetBool(device,"skybox",true);
+  D3DXMATRIX trans,scl;
+  D3DXVECTOR2 dsize = D3DXVECTOR2(800 / 4,600 / 4);
+  D3DXMATRIX proj;
+  D3DXMatrixOrthoLH(&proj,800,600,8,15);
+  device->SetTransform(D3DTS_PROJECTION,&proj);
+  device->SetVertexShader(NULL);
+  device->SetPixelShader(NULL);
+  D3DXMatrixIdentity(&world);
+  D3DXMatrixTranslation(&trans,dsize.x,dsize.x,0);
+  D3DXMatrixMultiply(&world,&world,&trans);
+  D3DXMatrixScaling(&scl,dsize.x,dsize.y,1);
+  D3DXMatrixMultiply(&world,&world,&scl);
+  device->SetTransform(D3DTS_WORLD,&world);
+
+  device->SetTexture(0,_surface->GetTexture(0));
+  plane_->Draw(device);
 }
 
 

@@ -7,7 +7,7 @@
 #include "pixel_shader.h"
 #include "plane.h"
 #include "xmodel.h"
-class CRenderTarget;
+#include <Surface.h>
 class TestScene {
 public:
   /// @brief コンストラクタ
@@ -43,5 +43,5 @@ private:
   LPDIRECT3DTEXTURE9 texBmp_;
   D3DXVECTOR3 rot_;
   LPDIRECT3DCUBETEXTURE9 texCube_;
-  CRenderTarget* _renderTarget[4];
+  snlib::Surface* _surface;
 };

@@ -34,7 +34,7 @@ Surface::Surface(LPDIRECT3DDEVICE9 device, UINT width, UINT height, UINT texture
 
 	for (UINT i = 0; i < texture_count_; i++) {
 		ret = device->CreateTexture(width_, height_, 1, D3DUSAGE_RENDERTARGET,
-			D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &texture_[i], nullptr);
+			D3DFMT_A32B32G32R32F, D3DPOOL_DEFAULT, &texture_[i], nullptr);
 		_ASSERT_EXPR(SUCCEEDED(ret), L"create surface texture failed");
 
 		ret = texture_[i]->GetSurfaceLevel(0, &color_surface_[i]);

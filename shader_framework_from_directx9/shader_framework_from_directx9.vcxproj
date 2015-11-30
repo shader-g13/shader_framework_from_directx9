@@ -95,7 +95,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\application.cpp" />
-    <ClCompile Include="src\CRenderTarget.cpp" />
     <ClCompile Include="src\input.cpp" />
     <ClCompile Include="src\LightManager.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -107,7 +106,6 @@
   <ItemGroup>
     <ClInclude Include="src\application.h" />
     <ClInclude Include="src\common.h" />
-    <ClInclude Include="src\CRenderTarget.h" />
     <ClInclude Include="src\input.h" />
     <ClInclude Include="src\LightManager.h" />
     <ClInclude Include="src\LightShaderInterface.h" />

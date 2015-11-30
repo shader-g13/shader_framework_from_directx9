@@ -41,7 +41,7 @@ void Renderer::Initialize(HWND window_handle, UINT buffer_width, UINT buffer_hei
 	present_param.SwapEffect       = D3DSWAPEFFECT_DISCARD;	// 映像信号に同期してフリップする
 	present_param.Windowed         = windable_;				// ウィンドウモード
 	present_param.EnableAutoDepthStencil = true;			// デプスバッファ（Ｚバッファ）とステンシルバッファを作成
-	present_param.AutoDepthStencilFormat = D3DFMT_D16;		// D3DFMT_D24S8 デプスバッファとして16bitを使う
+ present_param.AutoDepthStencilFormat = D3DFMT_D24S8;		// D3DFMT_D24S8 デプスバッファとして16bitを使う
 
 	if (windable_) {// ウィンドウモード
 		present_param.BackBufferFormat = D3DFMT_UNKNOWN;					// バックバッファ
