@@ -219,11 +219,10 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	vp.TopLeftY = 0;
 	g_pImmediateContext->RSSetViewports( 1, &vp );
 
-/*
 	// 頂点シェーダコンパイル・生成
 	ID3DBlob* pErrorBlob;
 	ID3DBlob* pVSBlob = NULL;
-	hr = D3DX11CompileFromFile( "shader.hlsl", NULL, NULL, "VertexShaderPolygon", "vs_4_0", D3DCOMPILE_ENABLE_STRICTNESS, 0, NULL, &pVSBlob, &pErrorBlob, NULL );
+	hr = D3DCompileFromFile( L"shader.hlsl", NULL, NULL, "VertexShaderPolygon", "vs_4_0", D3DCOMPILE_ENABLE_STRICTNESS, 0, &pVSBlob, &pErrorBlob);
 	if( FAILED(hr) )
 	{
 		MessageBox( NULL , (char*)pErrorBlob->GetBufferPointer(), "VS", MB_OK | MB_ICONERROR );
@@ -250,7 +249,7 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 
 	// ピクセルシェーダコンパイル・生成
 	ID3DBlob* pPSBlob = NULL;
-	hr = D3DX11CompileFromFile( "shader.hlsl", NULL, NULL, "PixelShaderPolygon", "ps_4_0", D3DCOMPILE_ENABLE_STRICTNESS, 0, NULL, &pPSBlob, &pErrorBlob, NULL );
+ hr = D3DCompileFromFile(L"shader.hlsl",NULL,NULL,"PixelShaderPolygon","ps_4_0",D3DCOMPILE_ENABLE_STRICTNESS,0,&pPSBlob,&pErrorBlob);
 	if( FAILED(hr) )
 	{
 		MessageBox( NULL , (char*)pErrorBlob->GetBufferPointer(), "PS", MB_OK | MB_ICONERROR );
@@ -259,7 +258,6 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	g_pD3DDevice->CreatePixelShader( pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), NULL, &g_pPixelShader );
 	
 	pPSBlob->Release();
-*/
 
 	// 定数バッファ生成
 	D3D11_BUFFER_DESC hBufferDesc;

@@ -13,9 +13,9 @@
 // ライブラリのリンク
 //*****************************************************************************
 #pragma comment (lib, "d3d11.lib")		
-#pragma comment (lib, "d3dcompiler.lib")
 #pragma comment (lib, "DirectXTex.lib")	
 #pragma comment (lib, "DirectXTK.lib")	
+#pragma comment (lib, "d3dcompiler.lib")
 
 //*****************************************************************************
 // マクロ定義
