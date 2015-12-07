@@ -44,6 +44,12 @@ ID3D11ShaderResourceView* g_pShaderResView = NULL;
 
 ID3D11Buffer*			g_pConstantBuffer = NULL;
 
+ID3D11Texture2D* _depth_stencil_texture;
+ID3D11DepthStencilView* _depth_stencil_view;
+
+ID3D11DepthStencilState* _depth_stencil_state;
+ID3D11RasterizerState* _rasterizer_state;
+
 
 //=============================================================================
 // メイン関数
@@ -201,13 +207,72 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 		return hr;
 
 
-	// レンダーターゲットビュー生成、設定
+
+ HRESULT result;
+ // レンダーターゲットビュー生成、設定
 	ID3D11Texture2D* pBackBuffer = NULL;
 	g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
-	g_pD3DDevice->CreateRenderTargetView( pBackBuffer, NULL, &g_pRenderTargetView );
-	pBackBuffer->Release();
-	g_pImmediateContext->OMSetRenderTargets( 1, &g_pRenderTargetView, NULL );
+ g_pD3DDevice->CreateRenderTargetView( pBackBuffer, NULL, &g_pRenderTargetView );
+ D3D11_TEXTURE2D_DESC desc;
+ pBackBuffer->GetDesc(&desc);
+ D3D11_TEXTURE2D_DESC texture_desc = {0};
+ texture_desc.Width = desc.Width;
+ texture_desc.Height = desc.Height;
+ texture_desc.MipLevels = 1;
+ texture_desc.ArraySize = 1;
+ texture_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+ texture_desc.SampleDesc.Count = 1;
+ texture_desc.SampleDesc.Quality = 0;
+ texture_desc.Usage = D3D11_USAGE_DEFAULT;
+ texture_desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+ texture_desc.CPUAccessFlags = 0;
+ texture_desc.MiscFlags = 0;
+ result = g_pD3DDevice->CreateTexture2D(&texture_desc,nullptr,&_depth_stencil_texture);
+ _ASSERT_EXPR(SUCCEEDED(result),L"深度テクスチャ生成");
+ D3D11_DEPTH_STENCIL_VIEW_DESC depth_stencile_view_desc = {};
+ depth_stencile_view_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+ depth_stencile_view_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+ depth_stencile_view_desc.Flags = 0;
+ depth_stencile_view_desc.Texture2D.MipSlice = 0;
+ result = g_pD3DDevice->CreateDepthStencilView(_depth_stencil_texture,&depth_stencile_view_desc,&_depth_stencil_view);
+ _ASSERT_EXPR(SUCCEEDED(result),L"深度ビュー生成失敗");
 
+
+ D3D11_DEPTH_STENCIL_DESC depth_stencil_desc = {0};
+ depth_stencil_desc.DepthEnable = true;
+ depth_stencil_desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+ depth_stencil_desc.DepthFunc = D3D11_COMPARISON_LESS;
+ depth_stencil_desc.StencilEnable = false;
+ depth_stencil_desc.StencilReadMask = 0xff;
+ depth_stencil_desc.StencilWriteMask = 0xff;
+ depth_stencil_desc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+ depth_stencil_desc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
+ depth_stencil_desc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+ depth_stencil_desc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+ depth_stencil_desc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+ depth_stencil_desc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
+ depth_stencil_desc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+ depth_stencil_desc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+ result = g_pD3DDevice->CreateDepthStencilState(&depth_stencil_desc,&_depth_stencil_state);
+ _ASSERT_EXPR(SUCCEEDED(result),L"深度ステート作成失敗");
+ g_pImmediateContext->OMSetDepthStencilState(_depth_stencil_state,1);
+ D3D11_RASTERIZER_DESC rasterize_desc = {};
+ rasterize_desc.FillMode = D3D11_FILL_SOLID;
+ rasterize_desc.CullMode = D3D11_CULL_BACK;
+ rasterize_desc.FrontCounterClockwise = false;
+ rasterize_desc.DepthBias = 0;
+ rasterize_desc.DepthBiasClamp = 0.f;
+ rasterize_desc.SlopeScaledDepthBias = 0.f;
+ rasterize_desc.DepthClipEnable = true;
+ rasterize_desc.ScissorEnable = false;
+ rasterize_desc.MultisampleEnable = false;
+ rasterize_desc.AntialiasedLineEnable = false;
+ result = g_pD3DDevice->CreateRasterizerState(&rasterize_desc,&_rasterizer_state);
+ _ASSERT_EXPR(SUCCEEDED(result),L"ラスタライズステート作成失敗");
+ g_pImmediateContext->RSSetState(_rasterizer_state);
+
+	pBackBuffer->Release();
+	g_pImmediateContext->OMSetRenderTargets( 1, &g_pRenderTargetView, _depth_stencil_view );
 
 	// ビューポート設定
 	D3D11_VIEWPORT vp;
@@ -300,6 +365,10 @@ void Uninit(void)
 	if( g_pSwapChain )			g_pSwapChain->Release();
 	if( g_pImmediateContext )	g_pImmediateContext->Release();
 	if( g_pD3DDevice )			g_pD3DDevice->Release();
+ if(_rasterizer_state) _rasterizer_state->Release();
+ if(_depth_stencil_state) _depth_stencil_state->Release();
+ if(_depth_stencil_texture) _depth_stencil_texture->Release();
+ if(_depth_stencil_view) _depth_stencil_view->Release();
 
 }
 
@@ -322,8 +391,8 @@ void Draw(void)
 	// バックバッファクリア
 	float ClearColor[4] = { 0.0f, 0.5f, 0.0f, 1.0f };
 	g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView, ClearColor );
-
-	// ポリゴン描画
+ g_pImmediateContext->ClearDepthStencilView(_depth_stencil_view,D3D11_CLEAR_DEPTH,1.f,0);
+ // ポリゴン描画
 	DrawPolygon();
 
 	// バックバッファ、フロントバッファ入れ替え
