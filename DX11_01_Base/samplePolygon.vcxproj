@@ -42,13 +42,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>import/include;import/include/DirectXTK;import/include/DirectXTex;$(IncludePath)</IncludePath>
-    <LibraryPath>import/lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>import/lib/Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\</OutDir>
     <IncludePath>import/include;import/include/DirectXTK;import/include/DirectXTex;$(IncludePath)</IncludePath>
-    <LibraryPath>import/lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>import/lib/Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
