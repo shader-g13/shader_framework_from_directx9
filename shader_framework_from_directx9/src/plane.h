@@ -24,8 +24,9 @@ protected:
 private:
 	struct VertexFormat {
 		D3DXVECTOR3 pos;
-		D3DXVECTOR3 nor;
+  D3DXVECTOR3 nor;
 		D3DCOLOR color;
+  D3DXVECTOR2 texcoord;
 		//float tex_index;
 	};
 

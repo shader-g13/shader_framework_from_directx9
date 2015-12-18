@@ -92,5 +92,13 @@
     <FxCompile Include="src\hlsl\normalBump.hlsl">
       <Filter>src\hlsl</Filter>
     </FxCompile>
+    <FxCompile Include="src\hlsl\texture.hlsl">
+      <Filter>src\hlsl</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\hlsl\differd.hlsl">
+      <Filter>src\hlsl</Filter>
+    </None>
   </ItemGroup>
 </Project>

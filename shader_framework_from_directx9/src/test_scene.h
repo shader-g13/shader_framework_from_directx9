@@ -30,8 +30,11 @@ public:
 
 protected:
 private:
+  VertexShader* vs_g_buff;
+  PixelShader* ps_g_buff;
   VertexShader* vs_;
   PixelShader* ps_;
+  PixelShader* ps_texture;
 
   PerthMatrix perth_;
   ViewMatrix view_;

@@ -32,8 +32,8 @@ VertexOut main(VertexIn arg) {
   VertexOut ret;
   ret.pos = Transform(arg.pos);
   ret.wpos = mul(float4( arg.pos,1.f ),GetWorldMatrix());
-  ret.norL = mul(float4( arg.nor,0.f ),GetWorldMatrix()).xyz;
-  ret.nor = mul(float4( arg.nor,0.f ),GetWorldMatrix()).xyz;
+  ret.norL = arg.nor;
+  ret.nor = mul(float4( arg.nor,1.f ),GetWorldMatrix()).xyz;
   ret.col = float4( GetMaterialDiffuseColor().rgb,1 );
   ret.tex = arg.tex;
   ret.tan = arg.tan;
